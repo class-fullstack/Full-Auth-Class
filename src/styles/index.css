@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+
+/* Page */
+:root {
+    --size: 120;
+    --coefficient: 1px;
+    --timeline: 2.6s;
+    --delay: 0.65s;
+    --rotation-y: -24;
+    --rotation-x: 28;
+    --color-one: #3a0ca3;
+    --color-two: #4361ee;
+    --color-three: #4cc9f0;
+}
+
+/* Auth */
+.auth {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

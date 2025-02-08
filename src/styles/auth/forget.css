@@ -1,0 +1,98 @@
+.forget-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.forget-box h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.forget-box p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon input {
+    width: 100%;
+    padding: 15px;
+    padding-left: 40px;
+    /* Khoảng cách cho icon bên trái */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.input-with-icon i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 20px;
+}
+
+.forget-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: #6e8efb;
+    color: white;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.forget-btn:hover {
+    background: #5c79d5;
+}
+
+.forget-btn i {
+    margin-left: 15px;
+}
+
+.forget-text {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 16px;
+    color: #666;
+}
+
+.forget-text a {
+    text-decoration: none;
+    color: #6e8efb;
+}
+
+.forget-text a:hover {
+    text-decoration: underline;
+}
