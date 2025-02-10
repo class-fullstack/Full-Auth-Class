@@ -1,0 +1,37 @@
+/* Header styling */
+.main-header {
+    background-color: #333;
+    /* Dark background */
+    padding: 10px 20px;
+    /* Padding around the header */
+}
+
+/* Navigation list styling */
+.nav-list {
+    list-style: none;
+    /* Remove bullet points */
+    display: flex;
+    /* Display list items horizontally */
+    gap: 20px;
+    /* Space between list items */
+}
+
+/* Link styling */
+.nav-list a {
+    color: white;
+    /* White text color */
+    text-decoration: none;
+    /* Remove underline */
+    font-size: 18px;
+    /* Font size */
+    font-family: Arial, sans-serif;
+    /* Font family */
+    transition: color 0.3s ease;
+    /* Smooth color transition on hover */
+}
+
+/* Link hover effect */
+.nav-list a:hover {
+    color: #ff6347;
+    /* Change color on hover (e.g., tomato) */
+}

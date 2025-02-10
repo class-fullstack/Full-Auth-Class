@@ -3,7 +3,7 @@ import React from "react";
 import LayoutPage from "../layouts/LayoutPage";
 import lazyLoader from "./lazyLoader";
 
-const Home = lazyLoader(() => import("../pages/Home"), 6000); // 5 seconds delay
+const Home = lazyLoader(() => import("../pages/Home"), 0); // 5 seconds delay
 const About = lazyLoader(() => import("../pages/About"));
 
 const mainRoutes = {
