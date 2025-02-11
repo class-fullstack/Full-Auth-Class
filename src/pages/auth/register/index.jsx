@@ -1,14 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../../styles/auth/register.css";
+import { showSuccessToast } from "../../../utils/toastNotifications";
 
 const Register = () => {
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    showSuccessToast("dang nhap thanh cong");
+  };
+
   return (
     <div className="auth">
       <div className="register-container">
         <div className="register-box">
           <h2>Create an Account</h2>
-          <form action="#" method="POST">
+          <form onSubmit={handleSignUp}>
             <div className="form-group">
               <i className="fas fa-envelope icon" />
               <input
