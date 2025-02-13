@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../../components/loading/loading";
+import SEO from "../../../components/seo/seo";
 import { keyLocalStorage } from "../../../constants/keyConstant";
 import axiosInstance from "../../../libs/axiosInterceptor";
 import "../../../styles/auth/login.css";
@@ -63,6 +64,10 @@ const Login = () => {
 
   return (
     <React.Fragment>
+      <SEO
+        title="Sign In"
+        description="Welcome to page Sign In website class 02 "
+      />
       <div className="auth">
         <div className="login-container">
           <div className="login-box">

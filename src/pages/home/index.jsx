@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import Loading from "../../components/loading/loading";
+import SEO from "../../components/seo/seo";
 import { GlobalContext } from "../../contexts/globalProviders";
 
 const Home = () => {
@@ -22,6 +23,7 @@ const Home = () => {
 
   return (
     <React.Fragment>
+      <SEO title="Home" description="Welcome to the homepage of My Website." />
       <div>
         <h1>{state.name}</h1>
         <h1>{state.email}</h1>

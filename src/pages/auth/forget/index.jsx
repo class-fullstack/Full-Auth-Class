@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../../components/loading/loading";
+import SEO from "../../../components/seo/seo";
 import axiosInstance from "../../../libs/axiosInterceptor";
 import "../../../styles/auth/forget.css";
 import {
@@ -36,6 +37,10 @@ const ForgetPassword = () => {
 
   return (
     <React.Fragment>
+      <SEO
+        title="Forget"
+        description="Welcome to page forget website class 02 "
+      />
       <div className="auth">
         <div className="forget-container">
           <div className="forget-box">

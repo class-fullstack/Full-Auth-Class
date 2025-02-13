@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../../components/loading/loading";
+import SEO from "../../../components/seo/seo";
 import axiosInstance from "../../../libs/axiosInterceptor";
 import "../../../styles/auth/register.css";
 import { isValidEmail } from "../../../utils/checkInput";
@@ -64,70 +65,76 @@ const Register = () => {
   };
 
   return (
-    <div className="auth">
-      <div className="register-container">
-        <div className="register-box">
-          <h2>Create an Account</h2>
-          <form onSubmit={handleSignUp}>
-            <div className="form-group">
-              <i className="fas fa-envelope icon" />
-              <input
-                type="text"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <div onClick={handleShowPassword}>
-                {showPassword ? (
-                  <i className="fas fa-lock icon" />
-                ) : (
-                  <i className="fa-solid fa-unlock icon"></i>
-                )}
+    <React.Fragment>
+      <SEO
+        title="Sign Up"
+        description="Welcome to page Sign Up website class 02 "
+      />
+      <div className="auth">
+        <div className="register-container">
+          <div className="register-box">
+            <h2>Create an Account</h2>
+            <form onSubmit={handleSignUp}>
+              <div className="form-group">
+                <i className="fas fa-envelope icon" />
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
               </div>
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                placeholder="Create a password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <div onClick={handleShowConfirmPassword}>
-                {showConfirmPassword ? (
-                  <i className="fas fa-lock icon" />
-                ) : (
-                  <i className="fa-solid fa-unlock icon"></i>
-                )}
+              <div className="form-group">
+                <div onClick={handleShowPassword}>
+                  {showPassword ? (
+                    <i className="fas fa-lock icon" />
+                  ) : (
+                    <i className="fa-solid fa-unlock icon"></i>
+                  )}
+                </div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  placeholder="Create a password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
               </div>
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                id="confirm-password"
-                name="confirm-password"
-                placeholder="Confirm your password"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-            {loading ? (
-              <Loading />
-            ) : (
-              <button type="submit" className="register-btn">
-                Sign Up
-              </button>
-            )}
-          </form>
-          <p className="alternate-option">
-            Already have an account? <Link to="/auth/login">Login here</Link>
-          </p>
+              <div className="form-group">
+                <div onClick={handleShowConfirmPassword}>
+                  {showConfirmPassword ? (
+                    <i className="fas fa-lock icon" />
+                  ) : (
+                    <i className="fa-solid fa-unlock icon"></i>
+                  )}
+                </div>
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  id="confirm-password"
+                  name="confirm-password"
+                  placeholder="Confirm your password"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+              </div>
+              {loading ? (
+                <Loading />
+              ) : (
+                <button type="submit" className="register-btn">
+                  Sign Up
+                </button>
+              )}
+            </form>
+            <p className="alternate-option">
+              Already have an account? <Link to="/auth/login">Login here</Link>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

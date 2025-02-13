@@ -1,4 +1,5 @@
 import React from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import GlobalProvider from "../contexts/globalProviders";
@@ -10,9 +11,11 @@ const LayoutGlobal = () => {
       <ToastContainer />
 
       {/* Global */}
-      <GlobalProvider>
-        <Outlet />
-      </GlobalProvider>
+      <HelmetProvider>
+        <GlobalProvider>
+          <Outlet />
+        </GlobalProvider>
+      </HelmetProvider>
     </React.Fragment>
   );
 };

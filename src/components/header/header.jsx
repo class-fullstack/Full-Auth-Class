@@ -1,6 +1,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axiosInstance from "../../libs/axiosInterceptor";
+
+import { keyLocalStorage } from "../../constants/keyConstant";
 import "../../styles/components/header.css";
+import { deleteFromLocalStorage } from "../../utils/localStorage";
+import { showErrorToast } from "../../utils/toastNotifications";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -11,7 +16,17 @@ const Header = () => {
   ];
 
   const handleLogout = () => {
-    navigate("/auth/login"); // Redirect to login page
+    axiosInstance
+      .get("/auth/logout")
+      .then((response) => {
+        if (response.status === 200) {
+          deleteFromLocalStorage(keyLocalStorage.accessToken);
+          navigate("/auth/login");
+        }
+      })
+      .catch((error) => {
+        return showErrorToast(error.response.data.message);
+      });
   };
 
   return (
