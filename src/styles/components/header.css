@@ -1,37 +1,51 @@
-/* Header styling */
+/* Header Styling */
 .main-header {
     background-color: #333;
-    /* Dark background */
-    padding: 10px 20px;
-    /* Padding around the header */
+    padding: 12px 20px;
 }
 
-/* Navigation list styling */
+/* Navigation Container */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Navigation List */
 .nav-list {
     list-style: none;
-    /* Remove bullet points */
     display: flex;
-    /* Display list items horizontally */
     gap: 20px;
-    /* Space between list items */
+    margin: 0;
+    padding: 0;
 }
 
-/* Link styling */
+/* Navigation Links */
 .nav-list a {
     color: white;
-    /* White text color */
     text-decoration: none;
-    /* Remove underline */
     font-size: 18px;
-    /* Font size */
     font-family: Arial, sans-serif;
-    /* Font family */
-    transition: color 0.3s ease;
-    /* Smooth color transition on hover */
+    transition: color 0.3s ease-in-out;
 }
 
-/* Link hover effect */
 .nav-list a:hover {
     color: #ff6347;
-    /* Change color on hover (e.g., tomato) */
+}
+
+/* Logout Button */
+.logout-btn {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.logout-btn:hover {
+    background-color: #e5533d;
 }

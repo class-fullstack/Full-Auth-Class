@@ -1,5 +1,6 @@
 import React from "react";
 
+import WithProtected from "../guards/withProtected";
 import LayoutPage from "../layouts/LayoutPage";
 import lazyLoader from "./lazyLoader";
 
@@ -8,7 +9,11 @@ const About = lazyLoader(() => import("../pages/About"));
 
 const mainRoutes = {
   path: "/",
-  element: <LayoutPage />,
+  element: (
+    <WithProtected>
+      <LayoutPage />
+    </WithProtected>
+  ),
   children: [
     {
       index: true,

@@ -1,18 +1,22 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../../components/loading/loading";
+import { keyLocalStorage } from "../../../constants/keyConstant";
 import axiosInstance from "../../../libs/axiosInterceptor";
 import "../../../styles/auth/login.css";
+import { saveToLocalStorage } from "../../../utils/localStorage";
 import {
   showErrorToast,
   showSuccessToast,
 } from "../../../utils/toastNotifications";
 
 const Login = () => {
-  const [email, setEmail] = React.useState("");
+  const [identify, setIdentify] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const focusRef = React.useRef(null);
+
   const navigate = useNavigate();
 
   // Function to show/hide password
@@ -25,15 +29,25 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
 
+    if (!identify || !password) {
+      setLoading(false);
+      return showErrorToast("Please fill all fields!");
+    }
+
     axiosInstance
       .post("/auth/login", {
-        identify: email,
+        identify,
         password,
       })
       .then((response) => {
         if (response.status === 200) {
           setLoading(false);
+          saveToLocalStorage(
+            keyLocalStorage.accessToken,
+            response.data.accessToken
+          );
           navigate("/");
+
           return showSuccessToast("Login successfully!");
         }
       })
@@ -42,6 +56,10 @@ const Login = () => {
         return showErrorToast(error.response.data.message);
       });
   };
+
+  React.useEffect(() => {
+    focusRef.current.focus();
+  }, []);
 
   return (
     <React.Fragment>
@@ -52,13 +70,14 @@ const Login = () => {
             <p>Login to your account</p>
             <form onSubmit={handleSignIn}>
               <div className="input-group">
-                <i className="fa fa-envelope icon" />
+                <i className="fa fa-user icon" />
                 <input
-                  type="email"
+                  type="text"
                   id="email"
-                  placeholder="Enter your email"
-                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email or username"
+                  onChange={(e) => setIdentify(e.target.value)}
                   required=""
+                  ref={focusRef}
                 />
               </div>
               <div className="input-group">
