@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import { keyLocalStorage } from "../constants/keyConstant";
 import { getFromLocalStorage } from "../utils/localStorage";
 
-const WithPublic = ({ children }) => {
+const WithAuthGuard = ({ children }) => {
   const accessToken = getFromLocalStorage(keyLocalStorage.accessToken);
 
   if (accessToken) {
@@ -12,4 +12,4 @@ const WithPublic = ({ children }) => {
   return children;
 };
 
-export default WithPublic;
+export default WithAuthGuard;

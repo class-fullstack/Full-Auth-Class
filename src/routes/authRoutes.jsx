@@ -1,4 +1,4 @@
-import WithPublic from "../guards/withPublic";
+import WithAuthGuard from "../guards/WithAuthGuard";
 import LayoutAuth from "../layouts/layoutAuth";
 import lazyLoader from "./lazyLoader";
 
@@ -9,9 +9,9 @@ const ForgetPassword = lazyLoader(() => import("../pages/auth/forget"));
 const authRoutes = {
   path: "auth",
   element: (
-    <WithPublic>
+    <WithAuthGuard>
       <LayoutAuth />
-    </WithPublic>
+    </WithAuthGuard>
   ),
   children: [
     {
