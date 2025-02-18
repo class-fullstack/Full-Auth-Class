@@ -1,24 +1,36 @@
-import axios from "axios";
 import React from "react";
 import Loading from "../../components/loading/loading";
 import SEO from "../../components/seo/seo";
+import { keyLocalStorage } from "../../constants/keyConstant";
 import { GlobalContext } from "../../contexts/globalProviders";
+import axiosInstance from "../../libs/axiosInterceptor";
+import { getFromLocalStorage } from "../../utils/localStorage";
 
 const Home = () => {
   const { state, setState } = React.useContext(GlobalContext);
-  const [todos, setTodos] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const [user, setUser] = React.useState(null);
 
   React.useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/todos")
-      .then((response) => {
-        setLoading(false);
-        setTodos(response.data);
-      })
-      .catch((error) => {
-        setLoading(false);
-      });
+    setLoading(true);
+    const token = getFromLocalStorage(keyLocalStorage.accessToken);
+    if (token) {
+      axiosInstance
+        .get("/users/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setLoading(false);
+          if (response.status === 200) {
+            setUser(response.data.user);
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
+    }
   }, []);
 
   return (
@@ -33,12 +45,20 @@ const Home = () => {
         <ul>
           {loading ? (
             <Loading />
+          ) : user ? (
+            <li>
+              <p>
+                <b>UserId:</b> {user.id}
+              </p>
+              <p>
+                <b>Email:</b> {user.email}
+              </p>
+              <p>
+                <b>Username:</b> {user.username}
+              </p>
+            </li>
           ) : (
-            todos.map((todo) => (
-              <li key={todo.id}>
-                <p>{todo.title}</p>
-              </li>
-            ))
+            <li>No user found</li>
           )}
         </ul>
       </div>
