@@ -16,11 +16,7 @@ const Home = () => {
     const token = getFromLocalStorage(keyLocalStorage.accessToken);
     if (token) {
       axiosInstance
-        .get("/users/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get("/users/profile")
         .then((response) => {
           setLoading(false);
           if (response.status === 200) {
