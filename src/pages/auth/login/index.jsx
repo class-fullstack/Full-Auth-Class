@@ -1,7 +1,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import LoginGoogle from "../../../components/auth/loginGoogle";
 import Loading from "../../../components/loading/loading";
 import SEO from "../../../components/seo/seo";
+import { GoogleClientId } from "../../../configs/googleConfig";
 import { keyLocalStorage } from "../../../constants/keyConstant";
 import axiosInstance from "../../../libs/axiosInterceptor";
 import "../../../styles/auth/login.css";
@@ -120,9 +124,10 @@ const Login = () => {
             <div className="social-login">
               <p>Or login with</p>
               <div className="social-icons">
-                <button className="google-btn">
-                  <i className="fab fa-google" /> Google
-                </button>
+                <GoogleOAuthProvider clientId={GoogleClientId}>
+                  <LoginGoogle />
+                </GoogleOAuthProvider>
+
                 <button className="facebook-btn">
                   <i className="fab fa-facebook-f" /> Facebook
                 </button>
