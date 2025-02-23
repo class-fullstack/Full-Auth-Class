@@ -1,4 +1,4 @@
-# this Project for member join class teacher Tai
+# This Project for member join class teacher Tai
 
 E-commerce is a React application built with Vite. It provides a minimal setup to get React working with Vite, including Hot Module Replacement (HMR) and some ESLint rules.
 
