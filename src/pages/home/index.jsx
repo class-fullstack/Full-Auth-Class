@@ -1,18 +1,24 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/loading/loading";
 import SEO from "../../components/seo/seo";
 import { keyLocalStorage } from "../../constants/keyConstant";
 import { GlobalContext } from "../../contexts/globalProviders";
-import { PiNetWorkContext } from "../../contexts/piNetWorkProvider";
 import axiosInstance from "../../libs/axiosInterceptor";
+import {
+  decrement,
+  increment,
+  reset,
+} from "../../redux/actions/counterActions";
 import { getFromLocalStorage } from "../../utils/localStorage";
 
 const Home = () => {
   const { state, setState } = React.useContext(GlobalContext);
   const [loading, setLoading] = React.useState(true);
   const [user, setUser] = React.useState(null);
+  const { count } = useSelector((state) => state.counter);
 
-  const { state: stateReducer, dispatch } = React.useContext(PiNetWorkContext);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     setLoading(true);
@@ -64,14 +70,14 @@ const Home = () => {
 
       <h1>
         Pi:
-        <span style={{ color: "red" }}>{stateReducer.count}</span>
+        <span style={{ color: "red" }}>{count}</span>
       </h1>
       <button
         style={{
           width: "100px",
           height: "50px",
         }}
-        onClick={() => dispatch({ type: "INCREMENT" })}
+        onClick={() => dispatch(increment())}
       >
         +
       </button>
@@ -80,9 +86,19 @@ const Home = () => {
           width: "100px",
           height: "50px",
         }}
-        onClick={() => dispatch({ type: "teacher" })}
+        onClick={() => dispatch(decrement())}
       >
         -
+      </button>
+
+      <button
+        style={{
+          width: "100px",
+          height: "50px",
+        }}
+        onClick={() => dispatch(reset())}
+      >
+        Reset
       </button>
     </React.Fragment>
   );

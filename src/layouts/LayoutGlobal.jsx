@@ -1,10 +1,10 @@
 import React from "react";
 import { HelmetProvider } from "react-helmet-async";
+import { Provider } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import GlobalProvider from "../contexts/globalProviders";
-import PiNetWorkProvider from "../contexts/piNetWorkProvider";
-
+import store from "../redux/store";
 const LayoutGlobal = () => {
   return (
     <React.Fragment>
@@ -13,12 +13,12 @@ const LayoutGlobal = () => {
 
       {/* Global */}
       <HelmetProvider>
-        <GlobalProvider>
-          {/* Demo Pi net work */}
-          <PiNetWorkProvider>
+        {/* Redux */}
+        <Provider store={store}>
+          <GlobalProvider>
             <Outlet />
-          </PiNetWorkProvider>
-        </GlobalProvider>
+          </GlobalProvider>
+        </Provider>
       </HelmetProvider>
     </React.Fragment>
   );
