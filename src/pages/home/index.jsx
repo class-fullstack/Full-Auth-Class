@@ -3,6 +3,7 @@ import Loading from "../../components/loading/loading";
 import SEO from "../../components/seo/seo";
 import { keyLocalStorage } from "../../constants/keyConstant";
 import { GlobalContext } from "../../contexts/globalProviders";
+import { PiNetWorkContext } from "../../contexts/piNetWorkProvider";
 import axiosInstance from "../../libs/axiosInterceptor";
 import { getFromLocalStorage } from "../../utils/localStorage";
 
@@ -10,6 +11,8 @@ const Home = () => {
   const { state, setState } = React.useContext(GlobalContext);
   const [loading, setLoading] = React.useState(true);
   const [user, setUser] = React.useState(null);
+
+  const { state: stateReducer, dispatch } = React.useContext(PiNetWorkContext);
 
   React.useEffect(() => {
     setLoading(true);
@@ -58,6 +61,29 @@ const Home = () => {
           )}
         </ul>
       </div>
+
+      <h1>
+        Pi:
+        <span style={{ color: "red" }}>{stateReducer.count}</span>
+      </h1>
+      <button
+        style={{
+          width: "100px",
+          height: "50px",
+        }}
+        onClick={() => dispatch({ type: "INCREMENT" })}
+      >
+        +
+      </button>
+      <button
+        style={{
+          width: "100px",
+          height: "50px",
+        }}
+        onClick={() => dispatch({ type: "teacher" })}
+      >
+        -
+      </button>
     </React.Fragment>
   );
 };
