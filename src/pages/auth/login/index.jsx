@@ -2,27 +2,25 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useDispatch, useSelector } from "react-redux";
 import LoginGoogle from "../../../components/auth/loginGoogle";
 import Loading from "../../../components/loading/loading";
 import SEO from "../../../components/seo/seo";
 import { GoogleClientId } from "../../../configs/googleConfig";
-import { keyLocalStorage } from "../../../constants/keyConstant";
-import axiosInstance from "../../../libs/axiosInterceptor";
+import { loginInitiate } from "../../../redux/actions/authAction";
 import "../../../styles/auth/login.css";
-import { saveToLocalStorage } from "../../../utils/localStorage";
-import {
-  showErrorToast,
-  showSuccessToast,
-} from "../../../utils/toastNotifications";
+import { showErrorToast } from "../../../utils/toastNotifications";
 
 const Login = () => {
   const [identify, setIdentify] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
   const focusRef = React.useRef(null);
 
+  const { isLoading } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Function to show/hide password
   const handleShowPassword = () => {
@@ -32,34 +30,12 @@ const Login = () => {
   // Function to handle sign up
   const handleSignIn = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     if (!identify || !password) {
-      setLoading(false);
       return showErrorToast("Please fill all fields!");
     }
 
-    axiosInstance
-      .post("/auth/login", {
-        identify,
-        password,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          setLoading(false);
-          saveToLocalStorage(
-            keyLocalStorage.accessToken,
-            response.data.accessToken
-          );
-          navigate("/");
-
-          return showSuccessToast("Login successfully!");
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-        return showErrorToast(error.response.data.message);
-      });
+    dispatch(loginInitiate(identify, password));
   };
 
   React.useEffect(() => {
@@ -113,7 +89,7 @@ const Login = () => {
                   Forgot Password?
                 </Link>
               </div>
-              {loading ? (
+              {isLoading ? (
                 <Loading />
               ) : (
                 <button type="submit" className="login-btn">

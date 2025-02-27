@@ -1,39 +1,31 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../../components/loading/loading";
 import SEO from "../../../components/seo/seo";
-import axiosInstance from "../../../libs/axiosInterceptor";
-import "../../../styles/auth/forget.css";
 import {
-  showErrorToast,
-  showSuccessToast,
-} from "../../../utils/toastNotifications";
+  forgetInitiate,
+  resetAuthState,
+} from "../../../redux/actions/authAction";
+import "../../../styles/auth/forget.css";
 
 const ForgetPassword = () => {
   const [email, setEmail] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoading, flag } = useSelector((state) => state.auth);
 
   const handleForgetPass = (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    axiosInstance
-      .post("/auth/forgot-password", {
-        email,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          setLoading(false);
-          navigate("/auth/login");
-          return showSuccessToast("Please, new password sent to your email!");
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-        return showErrorToast(error.response.data.message);
-      });
+    dispatch(forgetInitiate(email));
   };
+
+  React.useEffect(() => {
+    if (flag) {
+      dispatch(resetAuthState());
+      navigate("/auth/login");
+    }
+  }, [flag]);
 
   return (
     <React.Fragment>
@@ -59,7 +51,7 @@ const ForgetPassword = () => {
                   />
                 </div>
               </div>
-              {loading ? (
+              {isLoading ? (
                 <Loading />
               ) : (
                 <button type="submit" className="forget-btn">
