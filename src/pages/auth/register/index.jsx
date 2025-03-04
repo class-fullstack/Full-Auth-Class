@@ -1,7 +1,16 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../../components/loading/loading";
 import SEO from "../../../components/seo/seo";
+import {
+  registerInitiate,
+  resetAuthState,
+} from "../../../redux/actions/authAction";
+import {
+  selectFlag,
+  selectIsLoading,
+} from "../../../redux/selectors/authSelector";
 import "../../../styles/auth/register.css";
 import { isValidEmail } from "../../../utils/checkInput";
 import { showErrorToast } from "../../../utils/toastNotifications";
@@ -12,9 +21,12 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
-
   const navigate = useNavigate();
+
+  // Redux
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const isFlag = useSelector(selectFlag);
 
   // Function to show/hide password
   const handleShowPassword = () => {
@@ -29,19 +41,26 @@ const Register = () => {
   // Function to handle sign up
   const handleSignUp = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     if (!isValidEmail(email)) {
-      setLoading(false);
       return showErrorToast("Invalid email!");
     }
 
     // Check if passwords match
     if (password !== confirmPassword) {
-      setLoading(false);
       return showErrorToast("Passwords do not match!");
     }
+
+    // Call API to register
+    dispatch(registerInitiate(email, password));
   };
+
+  React.useEffect(() => {
+    if (isFlag) {
+      navigate("/auth/login");
+    }
+    return () => resetAuthState();
+  }, [isFlag]);
 
   return (
     <React.Fragment>
@@ -99,7 +118,7 @@ const Register = () => {
                   required
                 />
               </div>
-              {loading ? (
+              {isLoading ? (
                 <Loading />
               ) : (
                 <button type="submit" className="register-btn">

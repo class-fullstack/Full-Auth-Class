@@ -49,7 +49,6 @@ export const registerInitiate = (email, password) => {
     REGISTER_REJECTED,
     (_) => {
       showSuccessToast("Account created successfully!");
-      window.location.href = "/auth/login";
     }
   );
 };

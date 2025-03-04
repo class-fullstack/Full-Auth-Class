@@ -6,6 +6,8 @@ import {
   LOGIN_REJECTED,
   LOGIN_SUCCESS,
   REGISTER_PENDING,
+  REGISTER_REJECTED,
+  REGISTER_SUCCESS,
   RESET_AUTH_STATE,
 } from "../actions/types/authType";
 
@@ -31,6 +33,7 @@ const authReducer = (state = initialState, action) => {
       accessToken: action.payload,
     }),
     [FORGET_PASS_SUCCESS]: () => ({ ...state, isLoading: false, flag: true }),
+    [REGISTER_SUCCESS]: () => ({ ...state, isLoading: false, flag: true }),
 
     // Reset
     [RESET_AUTH_STATE]: () => ({
@@ -47,6 +50,11 @@ const authReducer = (state = initialState, action) => {
       error: action.payload,
     }),
     [FORGET_PASS_REJECTED]: () => ({
+      ...state,
+      isLoading: false,
+      error: action.payload,
+    }),
+    [REGISTER_REJECTED]: () => ({
       ...state,
       isLoading: false,
       error: action.payload,
