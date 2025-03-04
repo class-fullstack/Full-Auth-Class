@@ -7,13 +7,19 @@ import {
   forgetInitiate,
   resetAuthState,
 } from "../../../redux/actions/authAction";
+import {
+  selectFlag,
+  selectIsLoading,
+} from "../../../redux/selectors/authSelector";
 import "../../../styles/auth/forget.css";
 
 const ForgetPassword = () => {
   const [email, setEmail] = React.useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, flag } = useSelector((state) => state.auth);
+
+  const flag = useSelector(selectFlag);
+  const isLoading = useSelector(selectIsLoading);
 
   const handleForgetPass = (e) => {
     e.preventDefault();

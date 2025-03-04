@@ -5,6 +5,7 @@ import {
   LOGIN_PENDING,
   LOGIN_REJECTED,
   LOGIN_SUCCESS,
+  REGISTER_PENDING,
   RESET_AUTH_STATE,
 } from "../actions/types/authType";
 
@@ -15,26 +16,44 @@ const initialState = {
   flag: false,
 };
 
+//* Way 2
 const authReducer = (state = initialState, action) => {
-  const { type, payload } = action;
+  const authHandlers = {
+    // Pending
+    [LOGIN_PENDING]: () => ({ ...state, isLoading: true }),
+    [FORGET_PASS_PENDING]: () => ({ ...state, isLoading: true }),
+    [REGISTER_PENDING]: () => ({ ...state, isLoading: true }),
 
-  switch (type) {
-    case LOGIN_PENDING:
-    case FORGET_PASS_PENDING:
-      return { ...state, isLoading: true };
-    case LOGIN_SUCCESS:
-      return { ...state, isLoading: false, accessToken: payload };
-    case FORGET_PASS_SUCCESS:
-      return { ...state, isLoading: false, flag: true };
+    // Success
+    [LOGIN_SUCCESS]: () => ({
+      ...state,
+      isLoading: false,
+      accessToken: action.payload,
+    }),
+    [FORGET_PASS_SUCCESS]: () => ({ ...state, isLoading: false, flag: true }),
 
-    case RESET_AUTH_STATE:
-      return { ...state, isLoading: false, error: null, flag: false };
-    case LOGIN_REJECTED:
-    case FORGET_PASS_REJECTED:
-      return { ...state, isLoading: false, error: payload };
-    default:
-      return state;
-  }
+    // Reset
+    [RESET_AUTH_STATE]: () => ({
+      ...state,
+      isLoading: false,
+      error: null,
+      flag: false,
+    }),
+
+    // Rejected
+    [LOGIN_REJECTED]: () => ({
+      ...state,
+      isLoading: false,
+      error: action.payload,
+    }),
+    [FORGET_PASS_REJECTED]: () => ({
+      ...state,
+      isLoading: false,
+      error: action.payload,
+    }),
+  };
+
+  return authHandlers[action.type] ? authHandlers[action.type]() : state;
 };
 
 export default authReducer;

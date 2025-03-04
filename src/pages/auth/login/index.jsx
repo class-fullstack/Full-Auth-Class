@@ -8,6 +8,7 @@ import Loading from "../../../components/loading/loading";
 import SEO from "../../../components/seo/seo";
 import { GoogleClientId } from "../../../configs/googleConfig";
 import { loginInitiate } from "../../../redux/actions/authAction";
+import { selectIsLoading } from "../../../redux/selectors/authSelector";
 import "../../../styles/auth/login.css";
 import { showErrorToast } from "../../../utils/toastNotifications";
 
@@ -17,7 +18,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const focusRef = React.useRef(null);
 
-  const { isLoading } = useSelector((state) => state.auth);
+  const isLoading = useSelector(selectIsLoading);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

@@ -2,13 +2,9 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../../components/loading/loading";
 import SEO from "../../../components/seo/seo";
-import axiosInstance from "../../../libs/axiosInterceptor";
 import "../../../styles/auth/register.css";
 import { isValidEmail } from "../../../utils/checkInput";
-import {
-  showErrorToast,
-  showSuccessToast,
-} from "../../../utils/toastNotifications";
+import { showErrorToast } from "../../../utils/toastNotifications";
 
 const Register = () => {
   const [email, setEmail] = React.useState("");
@@ -45,23 +41,6 @@ const Register = () => {
       setLoading(false);
       return showErrorToast("Passwords do not match!");
     }
-
-    axiosInstance
-      .post("/auth/register", {
-        email,
-        password,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          setLoading(false);
-          navigate("/auth/login");
-          return showSuccessToast("Account created successfully!");
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-        return showErrorToast(error.response.data.message);
-      });
   };
 
   return (

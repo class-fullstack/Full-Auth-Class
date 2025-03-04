@@ -21,7 +21,8 @@
     "redux": "^5.0.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^3.1.0"
+    "redux-thunk": "^3.1.0",
+    "reselect": "^5.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
