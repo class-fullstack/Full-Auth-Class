@@ -13,7 +13,7 @@ import {
 import { getFromLocalStorage } from "../../utils/localStorage";
 
 const Home = () => {
-  const { state, setState } = React.useContext(GlobalContext);
+  const { state } = React.useContext(GlobalContext);
   const [loading, setLoading] = React.useState(true);
   const [user, setUser] = React.useState(null);
   const { count } = useSelector((state) => state.counter);
